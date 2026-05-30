@@ -24,24 +24,55 @@ bot.on('photo', async (msg) => {
 
         const file = await bot.getFile(photo.file_id);
 
-        bot.sendMessage(
+        const imageUrl =
+            `https://api.telegram.org/file/bot${TOKEN}/${file.file_path}`;
+
+        await bot.sendMessage(
             msg.chat.id,
-            `✅ Скрин получен
+            '🔍 Распознаю текст...'
+        );
 
-📁 File ID:
-${photo.file_id}
+        const formData = new FormData();
 
-📂 File Path:
-${file.file_path}`
+        formData.append(
+            'url',
+            imageUrl
+        );
+
+        formData.append(
+            'apikey',
+            OCR_API_KEY
+        );
+
+        formData.append(
+            'language',
+            'rus'
+        );
+
+        const response = await axios.post(
+            'https://api.ocr.space/parse/image',
+            formData,
+            {
+                headers: formData.getHeaders()
+            }
+        );
+
+        const parsed =
+            response.data?.ParsedResults?.[0]?.ParsedText
+            || 'Текст не найден';
+
+        await bot.sendMessage(
+            msg.chat.id,
+            parsed.substring(0, 3500)
         );
 
     } catch (err) {
 
         console.log(err);
 
-        bot.sendMessage(
+        await bot.sendMessage(
             msg.chat.id,
-            '❌ Ошибка получения файла'
+            '❌ Ошибка OCR'
         );
     }
 });
