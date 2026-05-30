@@ -120,12 +120,7 @@ const mythicMatch = parsed.match(/Мифических.*?(\d+)\s+из\s+57/i);
 const legendaryMatch = parsed.match(/Легендарных.*?(\d+)\s+из\s+38/i);
 
 const memes = memesMatch ? memesMatch[1] : '?';
-const rank = rankMatch ? rankMatch[1] : '?';
-const pts = ptsMatch ? ptsMatch[1] : '?';
-const ptsNumber =
-    Number(
-        pts.replace(/,/g, '')
-    );
+
 
 const common = commonMatch ? commonMatch[1] : '?';
 const rare = rareMatch ? rareMatch[1] : '?';
@@ -148,41 +143,50 @@ const minPts =
     Number(mythic) * 250 +
     Number(legendary) * 750;
 const estimatedRolls =
-    Math.round(
-        ptsNumber / 55
-    );
+    ptsNumber > 0
+        ? Math.round(
+            ptsNumber / 55
+          )
+        : 0;
+
 const duplicates =
-    estimatedRolls -
-    uniqueMemes;
+    estimatedRolls > 0
+        ? estimatedRolls - uniqueMemes
+        : 0;
+
 const newRate =
-(
-    uniqueMemes /
-    estimatedRolls *
-    100
-).toFixed(1);
+    estimatedRolls > 0
+        ? (
+            uniqueMemes /
+            estimatedRolls *
+            100
+          ).toFixed(1)
+        : '?';
 
 const duplicateRate =
-(
-    duplicates /
-    estimatedRolls *
-    100
-).toFixed(1);
+    estimatedRolls > 0
+        ? (
+            duplicates /
+            estimatedRolls *
+            100
+          ).toFixed(1)
+        : '?';
 
         const report =
 `📊 Анализ профиля
 
-🎴 Мемов: ${memes}
+🎴 Мемов в боте: ${memes}
 🏆 Ранг: ${rank}
 ⭐ PTS: ${pts}
 
 📚 Коллекция
 
-Обычные: ${common}/59
-Редкие: ${rare}/58
-Сверхредкие: ${superRare}/58
-Эпические: ${epic}/61
-Мифические: ${mythic}/57
-Легендарные: ${legendary}/38
+🤍 Обычные: ${common}/59
+💙 Редкие: ${rare}/58
+💜 Сверхредкие: ${superRare}/58
+❤️ Эпические: ${epic}/61
+🧡 Мифические: ${mythic}/57
+💛 Легендарные: ${legendary}/38
 
 ━━━━━━━━━━
 
