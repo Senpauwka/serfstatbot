@@ -57,10 +57,11 @@ bot.on('photo', async (msg) => {
             }
         );
 
-        const parsed =
-            response.data?.ParsedResults?.[0]?.ParsedText
-            || 'Текст не найден';
+        console.log(JSON.stringify(response.data, null, 2));
 
+const parsed =
+    response.data?.ParsedResults?.[0]?.ParsedText
+    || 'Текст не найден';
         await bot.sendMessage(
             msg.chat.id,
             parsed.substring(0, 3500)
