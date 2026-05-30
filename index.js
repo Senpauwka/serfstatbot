@@ -91,7 +91,28 @@ bot.on('photo', async (msg) => {
         const parsed =
             response.data?.ParsedResults?.[0]?.ParsedText
             || 'Текст не найден';
+const memesMatch = parsed.match(/(\d+)\s+мемов/i);
+const rankMatch = parsed.match(/(\d+)\s+ранг/i);
+const ptsMatch = parsed.match(/([\d,]+)\s+pts/i);
 
+const commonMatch = parsed.match(/(\d+)\s+из\s+59/i);
+
+const rareMatch = parsed.match(/Редких.*?(\d+)\s+из\s+58/i);
+const superRareMatch = parsed.match(/Сверхредких.*?(\d+)\s+из\s+58/i);
+const epicMatch = parsed.match(/Эпических.*?(\d+)\s+из\s+61/i);
+const mythicMatch = parsed.match(/Мифических.*?(\d+)\s+из\s+57/i);
+const legendaryMatch = parsed.match(/Легендарных.*?(\d+)\s+из\s+38/i);
+
+const memes = memesMatch ? memesMatch[1] : '?';
+const rank = rankMatch ? rankMatch[1] : '?';
+const pts = ptsMatch ? ptsMatch[1] : '?';
+
+const common = commonMatch ? commonMatch[1] : '?';
+const rare = rareMatch ? rareMatch[1] : '?';
+const superRare = superRareMatch ? superRareMatch[1] : '?';
+const epic = epicMatch ? epicMatch[1] : '?';
+const mythic = mythicMatch ? mythicMatch[1] : '?';
+const legendary = legendaryMatch ? legendaryMatch[1] : '?';
         await bot.sendMessage(
             msg.chat.id,
             parsed.substring(0, 3500)
