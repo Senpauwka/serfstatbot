@@ -92,8 +92,24 @@ bot.on('photo', async (msg) => {
             response.data?.ParsedResults?.[0]?.ParsedText
             || 'Текст не найден';
 const memesMatch = parsed.match(/(\d+)\s+мемов/i);
-const rankMatch = parsed.match(/(\d+)\s+ранг/i);
-const ptsMatch = parsed.match(/([\d,]+)\s+pts/i);
+const rankMatch = parsed.match(/([\d,]+)\s+ранг/i);
+const rank =
+    rankMatch
+        ? rankMatch[1].replace(/,/g, '')
+        : '?';
+const ptsMatch =
+    parsed.match(/([\d.,]+)\s*pts/i);
+const pts =
+    ptsMatch
+        ? ptsMatch[1]
+        : '?';
+
+const ptsNumber =
+    ptsMatch
+        ? Number(
+            pts.replace(/[.,]/g, '')
+          )
+        : 0;
 
 const commonMatch = parsed.match(/(\d+)\s+из\s+59/i);
 
