@@ -113,10 +113,26 @@ const superRare = superRareMatch ? superRareMatch[1] : '?';
 const epic = epicMatch ? epicMatch[1] : '?';
 const mythic = mythicMatch ? mythicMatch[1] : '?';
 const legendary = legendaryMatch ? legendaryMatch[1] : '?';
-        await bot.sendMessage(
-            msg.chat.id,
-            parsed.substring(0, 3500)
-        );
+        const report =
+`📊 Анализ профиля
+
+🎴 Мемов: ${memes}
+🏆 Ранг: ${rank}
+⭐ PTS: ${pts}
+
+📚 Коллекция
+
+Обычные: ${common}/59
+Редкие: ${rare}/58
+Сверхредкие: ${superRare}/58
+Эпические: ${epic}/61
+Мифические: ${mythic}/57
+Легендарные: ${legendary}/38`;
+
+await bot.sendMessage(
+    msg.chat.id,
+    report
+);
 
         fs.unlinkSync(tempFile);
 
