@@ -106,6 +106,10 @@ const legendaryMatch = parsed.match(/Легендарных.*?(\d+)\s+из\s+38/
 const memes = memesMatch ? memesMatch[1] : '?';
 const rank = rankMatch ? rankMatch[1] : '?';
 const pts = ptsMatch ? ptsMatch[1] : '?';
+const ptsNumber =
+    Number(
+        pts.replace(/,/g, '')
+    );
 
 const common = commonMatch ? commonMatch[1] : '?';
 const rare = rareMatch ? rareMatch[1] : '?';
@@ -113,6 +117,41 @@ const superRare = superRareMatch ? superRareMatch[1] : '?';
 const epic = epicMatch ? epicMatch[1] : '?';
 const mythic = mythicMatch ? mythicMatch[1] : '?';
 const legendary = legendaryMatch ? legendaryMatch[1] : '?';
+const uniqueMemes =
+    Number(common) +
+    Number(rare) +
+    Number(superRare) +
+    Number(epic) +
+    Number(mythic) +
+    Number(legendary);
+const minPts =
+    Number(common) * 25 +
+    Number(rare) * 55 +
+    Number(superRare) * 80 +
+    Number(epic) * 150 +
+    Number(mythic) * 250 +
+    Number(legendary) * 750;
+const estimatedRolls =
+    Math.round(
+        ptsNumber / 55
+    );
+const duplicates =
+    estimatedRolls -
+    uniqueMemes;
+const newRate =
+(
+    uniqueMemes /
+    estimatedRolls *
+    100
+).toFixed(1);
+
+const duplicateRate =
+(
+    duplicates /
+    estimatedRolls *
+    100
+).toFixed(1);
+
         const report =
 `📊 Анализ профиля
 
@@ -127,7 +166,22 @@ const legendary = legendaryMatch ? legendaryMatch[1] : '?';
 Сверхредкие: ${superRare}/58
 Эпические: ${epic}/61
 Мифические: ${mythic}/57
-Легендарные: ${legendary}/38`;
+Легендарные: ${legendary}/38
+
+━━━━━━━━━━
+
+✅ Уникальных мемов: ${uniqueMemes}
+
+🔁 Оценка баянов: ${duplicates}
+
+📈 Коэффициент новых:
+${newRate}%
+
+📉 Коэффициент баянов:
+${duplicateRate}%
+
+🎰 Оценка прокрутов:
+${estimatedRolls}`;
 
 await bot.sendMessage(
     msg.chat.id,
