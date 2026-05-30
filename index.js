@@ -1,6 +1,8 @@
 const TelegramBot = require('node-telegram-bot-api');
 const axios = require('axios');
 const FormData = require('form-data');
+const fs = require('fs');
+const path = require('path');
 const TOKEN = process.env.BOT_TOKEN || '8890269997:AAFQt1NGTAeCrsBhXFrAvsMULiWW_Cmn3SI';
 const OCR_API_KEY = process.env.OCR_API_KEY;
 const bot = new TelegramBot(TOKEN, {
@@ -26,20 +28,34 @@ bot.on('photo', async (msg) => {
 
         const imageUrl =
             `https://api.telegram.org/file/bot${TOKEN}/${file.file_path}`;
-console.log("IMAGE URL:");
-console.log(imageUrl);
 
         await bot.sendMessage(
             msg.chat.id,
             '🔍 Распознаю текст...'
         );
 
-        const formData = new FormData();
-
-        formData.append(
-            'url',
-            imageUrl
+        const imageResponse = await axios.get(
+            imageUrl,
+            {
+                responseType: 'stream'
+            }
         );
+
+        const tempFile = path.join(
+            __dirname,
+            'temp.jpg'
+        );
+
+        const writer = fs.createWriteStream(tempFile);
+
+        imageResponse.data.pipe(writer);
+
+        await new Promise((resolve, reject) => {
+            writer.on('finish', resolve);
+            writer.on('error', reject);
+        });
+
+        const formData = new FormData();
 
         formData.append(
             'apikey',
@@ -51,6 +67,11 @@ console.log(imageUrl);
             'rus'
         );
 
+        formData.append(
+            'file',
+            fs.createReadStream(tempFile)
+        );
+
         const response = await axios.post(
             'https://api.ocr.space/parse/image',
             formData,
@@ -59,15 +80,24 @@ console.log(imageUrl);
             }
         );
 
-        console.log(JSON.stringify(response.data, null, 2));
+        console.log(
+            JSON.stringify(
+                response.data,
+                null,
+                2
+            )
+        );
 
-const parsed =
-    response.data?.ParsedResults?.[0]?.ParsedText
-    || 'Текст не найден';
+        const parsed =
+            response.data?.ParsedResults?.[0]?.ParsedText
+            || 'Текст не найден';
+
         await bot.sendMessage(
             msg.chat.id,
             parsed.substring(0, 3500)
         );
+
+        fs.unlinkSync(tempFile);
 
     } catch (err) {
 
