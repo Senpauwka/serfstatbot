@@ -17,12 +17,32 @@ bot.onText(/\/start/, (msg) => {
 
 bot.on('photo', async (msg) => {
 
-    const photo = msg.photo[msg.photo.length - 1];
+    try {
 
-    bot.sendMessage(
-        msg.chat.id,
-        `✅ Скрин получен.\n\nID фото:\n${photo.file_id}`
-    );
+        const photo = msg.photo[msg.photo.length - 1];
+
+        const file = await bot.getFile(photo.file_id);
+
+        bot.sendMessage(
+            msg.chat.id,
+            `✅ Скрин получен
+
+📁 File ID:
+${photo.file_id}
+
+📂 File Path:
+${file.file_path}`
+        );
+
+    } catch (err) {
+
+        console.log(err);
+
+        bot.sendMessage(
+            msg.chat.id,
+            '❌ Ошибка получения файла'
+        );
+    }
 });
 
 bot.on('polling_error', (error) => {
