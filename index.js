@@ -101,17 +101,48 @@ const rank =
         : '?';
 const ptsMatch =
     parsed.match(/([\d.,]+)\s*pts/i);
-const pts =
-    ptsMatch
-        ? ptsMatch[1]
-        : '?';
 
-const ptsNumber =
-    ptsMatch
-        ? Number(
+let pts = '?';
+let ptsNumber = 0;
+
+if (ptsMatch) {
+
+    pts = ptsMatch[1];
+
+    ptsNumber =
+        Number(
             pts.replace(/[.,]/g, '')
-          )
-        : 0;
+        );
+
+} else {
+
+    const allNumbers =
+        parsed.match(/\d[\d.,]*/g);
+
+    if (allNumbers) {
+
+        const largeNumbers =
+            allNumbers.filter(
+                n =>
+                    Number(
+                        n.replace(/[.,]/g, '')
+                    ) > 5000
+            );
+
+        if (largeNumbers.length > 0) {
+
+            pts =
+                largeNumbers[
+                    largeNumbers.length - 1
+                ];
+
+            ptsNumber =
+                Number(
+                    pts.replace(/[.,]/g, '')
+                );
+        }
+    }
+}
 
 const commonMatch = parsed.match(/(\d+)\s+из\s+59/i);
 
