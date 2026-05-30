@@ -1,83 +1,31 @@
-const https = require('https');
+const TelegramBot = require('node-telegram-bot-api');
 
-const TOKEN = '8890269997:AAFQt1NGTAeCrsBhXFrAvsMULiWW_Cmn3SI';
+const TOKEN = process.env.BOT_TOKEN || '8890269997:AAFQt1NGTAeCrsBhXFrAvsMULiWW_Cmn3SI';
 
-function sendMessage(chatId, text) {
-    const data = JSON.stringify({
-        chat_id: chatId,
-        text: text
-    });
+const bot = new TelegramBot(TOKEN, {
+    polling: true
+});
 
-    const options = {
-        hostname: 'api.telegram.org',
-        path: `/bot${TOKEN}/sendMessage`,
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Content-Length': data.length
-        }
-    };
+console.log('SerfStat Bot запущен');
 
-    const req = https.request(options);
-
-    req.write(data);
-    req.end();
-}
-
-function getUpdates(offset = 0) {
-    https.get(
-        `https://api.telegram.org/bot${TOKEN}/getUpdates?offset=${offset}`,
-        (res) => {
-
-            let data = '';
-
-            res.on('data', chunk => {
-                data += chunk;
-            });
-
-            res.on('end', () => {
-
-                const json = JSON.parse(data);
-
-                if (!json.result) return;
-
-                json.result.forEach(update => {
-
-                    const message = update.message;
-
-                    if (!message) return;
-
-                    const chatId = message.chat.id;
-
-                    // /start
-                    if (message.text === '/start') {
-
-                        sendMessage(
-                            chatId,
-                            '📊 SerfStat Analyzer запущен.\n\nОтправь скрин профиля.'
-                        );
-                    }
-
-                    // Фото
-                    if (message.photo) {
-
-                        sendMessage(
-                            chatId,
-                            '✅ Скрин получен.\nАнализ скоро будет подключён.'
-                        );
-                    }
-
-                    offset = update.update_id + 1;
-                });
-
-                setTimeout(() => {
-                    getUpdates(offset);
-                }, 1000);
-            });
-        }
+bot.onText(/\/start/, (msg) => {
+    bot.sendMessage(
+        msg.chat.id,
+        '📊 SerfStat Analyzer\n\nОтправь скрин профиля Серфбота.'
     );
-}
+});
 
-console.log('Бот запущен...');
+bot.on('photo', async (msg) => {
+    bot.sendMessage(
+        msg.chat.id,
+        '✅ Скрин получен.\n\nСкоро подключим OCR.'
+    );
+});
 
-getUpdates();
+bot.on('polling_error', (error) => {
+    console.log('Polling Error:', error.message);
+});
+
+bot.on('error', (error) => {
+    console.log('Bot Error:', error.message);
+});
