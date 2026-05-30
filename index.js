@@ -16,9 +16,12 @@ bot.onText(/\/start/, (msg) => {
 });
 
 bot.on('photo', async (msg) => {
+
+    const photo = msg.photo[msg.photo.length - 1];
+
     bot.sendMessage(
         msg.chat.id,
-        '✅ Скрин получен.\n\nСкоро подключим OCR.'
+        `✅ Скрин получен.\n\nID фото:\n${photo.file_id}`
     );
 });
 
