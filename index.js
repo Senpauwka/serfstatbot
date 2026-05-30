@@ -7,7 +7,7 @@ const bot = new TelegramBot(TOKEN, {
     polling: true
 });
 
-console.log('SerfStat Bot запущен');
+console.log('VER 2.0 TEST');
 
 bot.onText(/\/start/, (msg) => {
     bot.sendMessage(
