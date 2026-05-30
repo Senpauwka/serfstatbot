@@ -85,3 +85,13 @@ bot.on('polling_error', (error) => {
 bot.on('error', (error) => {
     console.log('Bot Error:', error.message);
 });
+const http = require('http');
+
+const PORT = process.env.PORT || 10000;
+
+http.createServer((req, res) => {
+    res.writeHead(200);
+    res.end('SerfStat Bot работает');
+}).listen(PORT);
+
+console.log(`HTTP сервер запущен на порту ${PORT}`);
