@@ -91,6 +91,8 @@ bot.on('photo', async (msg) => {
         const parsed =
             response.data?.ParsedResults?.[0]?.ParsedText
             || 'Текст не найден';
+console.log("PARSED TEXT:");
+console.log(parsed);
 const memesMatch = parsed.match(/(\d+)\s+мемов/i);
 const rankMatch = parsed.match(/([\d,]+)\s+ранг/i);
 const rank =
