@@ -26,6 +26,8 @@ bot.on('photo', async (msg) => {
 
         const imageUrl =
             `https://api.telegram.org/file/bot${TOKEN}/${file.file_path}`;
+console.log("IMAGE URL:");
+console.log(imageUrl);
 
         await bot.sendMessage(
             msg.chat.id,
