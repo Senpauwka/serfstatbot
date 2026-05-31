@@ -193,6 +193,14 @@ const duplicates =
     estimatedRolls > 0
         ? estimatedRolls - uniqueMemes
         : 0;
+const luckScore =
+    estimatedRolls > 0
+        ? (
+            uniqueMemes /
+            estimatedRolls *
+            100
+          )
+        : 0;
 
 const newRate =
     estimatedRolls > 0
@@ -211,6 +219,28 @@ const duplicateRate =
             100
           ).toFixed(1)
         : '?';
+let luckText = '❓ Не определена';
+
+if (newRate >= 40) {
+
+    luckText = '👑 Легендарная';
+
+} else if (newRate >= 30) {
+
+    luckText = '🔥 Очень высокая';
+
+} else if (newRate >= 20) {
+
+    luckText = '🍀 Высокая';
+
+} else if (newRate >= 10) {
+
+    luckText = '🙂 Средняя';
+
+} else {
+
+    luckText = '💀 Не везёт';
+}
 
         const report =
 `📊 Анализ профиля
@@ -239,6 +269,9 @@ ${collectionPercent}%
 
 📈 Коэффициент новых:
 ${newRate}%
+
+🍀 Удача аккаунта:
+${luckText}
 
 📉 Коэффициент баянов:
 ${duplicateRate}%
