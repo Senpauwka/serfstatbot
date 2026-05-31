@@ -143,6 +143,9 @@ if (ptsMatch) {
         }
     }
 }
+console.log('RANK:', rank);
+console.log('PTS:', pts);
+console.log('PTS NUMBER:', ptsNumber);
 
 const commonMatch = parsed.match(/(\d+)\s+из\s+59/i);
 
@@ -221,7 +224,7 @@ const duplicateRate =
 ❤️ Мифические: ${mythic}/57
 ⭐ Легендарные: ${legendary}/38
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+━━━━━━━━━━━━━━━━━━━━━━━━
 
 🎴 Уникальных мемов: ${uniqueMemes}
 
