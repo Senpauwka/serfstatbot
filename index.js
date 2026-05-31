@@ -3,7 +3,7 @@ const axios = require('axios');
 const FormData = require('form-data');
 const fs = require('fs');
 const path = require('path');
-const TOKEN = process.env.BOT_TOKEN || '8890269997:AAFQt1NGTAeCrsBhXFrAvsMULiWW_Cmn3SI';
+const TOKEN = process.env.BOT_TOKEN;
 const OCR_API_KEY = process.env.OCR_API_KEY;
 const bot = new TelegramBot(TOKEN, {
     polling: true
