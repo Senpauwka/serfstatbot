@@ -171,6 +171,10 @@ const uniqueMemes =
     Number(epic) +
     Number(mythic) +
     Number(legendary);
+const collectionPercent =
+(
+    uniqueMemes / 331 * 100
+).toFixed(1);
 const minPts =
     Number(common) * 25 +
     Number(rare) * 55 +
@@ -227,6 +231,9 @@ const duplicateRate =
 ━━━━━━━━━━━━━━━━━━━━━━━━
 
 🎴 Уникальных мемов: ${uniqueMemes}
+
+📚 Закрытие коллекции:
+${collectionPercent}%
 
 🗑️ Оценка баянов: ${duplicates}
 
