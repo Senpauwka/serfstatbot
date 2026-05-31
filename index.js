@@ -42,9 +42,9 @@ bot.on('photo', async (msg) => {
         );
 
         const tempFile = path.join(
-            __dirname,
-            'temp.jpg'
-        );
+    __dirname,
+    `temp_${Date.now()}.jpg`
+);
 
         const writer = fs.createWriteStream(tempFile);
 
@@ -241,7 +241,9 @@ await bot.sendMessage(
     report
 );
 
-        fs.unlinkSync(tempFile);
+        if (fs.existsSync(tempFile)) {
+    fs.unlinkSync(tempFile);
+};
 
     } catch (err) {
 
