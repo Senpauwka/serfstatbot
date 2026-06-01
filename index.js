@@ -241,6 +241,76 @@ if (newRate >= 40) {
 
     luckText = '💀 Не везёт';
 }
+let collectorTitle = '📦 Новичок';
+
+if (collectionPercent >= 100) {
+
+    collectorTitle =
+        '💎 Абсолютный Коллекционер';
+
+} else if (collectionPercent >= 90) {
+
+    collectorTitle =
+        '👑 Хранитель Мемов';
+
+} else if (collectionPercent >= 75) {
+
+    collectorTitle =
+        '🥇 Архивариус';
+
+} else if (collectionPercent >= 50) {
+
+    collectorTitle =
+        '🥈 Коллекционер';
+
+} else if (collectionPercent >= 25) {
+
+    collectorTitle =
+        '🥉 Собиратель';
+}
+const achievements = [];
+
+if (Number(legendary) >= 10) {
+
+    achievements.push(
+        '⭐ Охотник на легендарки'
+    );
+}
+
+if (Number(legendary) >= 25) {
+
+    achievements.push(
+        '👑 Повелитель легендарок'
+    );
+}
+
+if (Number(mythic) >= 30) {
+
+    achievements.push(
+        '🔥 Мифический коллекционер'
+    );
+}
+
+if (Number(epic) >= 50) {
+
+    achievements.push(
+        '💜 Эпический архив'
+    );
+}
+
+if (collectionPercent >= 90) {
+
+    achievements.push(
+        '🏆 Почти собрал всё'
+    );
+}
+
+if (collectionPercent >= 100) {
+
+    achievements.push(
+        '💎 Коллекция завершена'
+    );
+}
 
         const report =
 `📊 Анализ профиля
@@ -262,8 +332,14 @@ if (newRate >= 40) {
 
 🎴 Уникальных мемов: ${uniqueMemes}
 
+💎 Ценность коллекции:
+${minPts} PTS
+
 📚 Закрытие коллекции:
 ${collectionPercent}%
+
+🏅 Титул:
+${collectorTitle}
 
 🗑️ Оценка баянов: ${duplicates}
 
@@ -275,6 +351,10 @@ ${luckText}
 
 📉 Коэффициент баянов:
 ${duplicateRate}%
+
+🏆 Достижения:
+
+${achievements.join('\n')}
 
 🎰 Оценка прокрутов:
 ${estimatedRolls}`;
