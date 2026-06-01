@@ -165,6 +165,36 @@ const epic = epicMatch ? epicMatch[1] : '?';
 const mythic = mythicMatch ? mythicMatch[1] : '?';
 const legendary = legendaryMatch ? legendaryMatch[1] : '?';
 
+const commonPercent =
+    (
+        Number(common) / 59 * 100
+    ).toFixed(1);
+
+const rarePercent =
+    (
+        Number(rare) / 58 * 100
+    ).toFixed(1);
+
+const superRarePercent =
+    (
+        Number(superRare) / 58 * 100
+    ).toFixed(1);
+
+const epicPercent =
+    (
+        Number(epic) / 61 * 100
+    ).toFixed(1);
+
+const mythicPercent =
+    (
+        Number(mythic) / 57 * 100
+    ).toFixed(1);
+
+const legendaryPercent =
+    (
+        Number(legendary) / 38 * 100
+    ).toFixed(1);
+
 const uniqueMemes =
     Number(common) +
     Number(rare) +
@@ -454,13 +484,18 @@ if (accountScore >= 5000) {
 
 📚 Коллекция 🎴
 
-🩵 Обычные: ${common}/59
-💚 Редкие: ${rare}/58
-💙 Сверхредкие: ${superRare}/58
-💜 Эпические: ${epic}/61
-❤️ Мифические: ${mythic}/57
-⭐ Легендарные: ${legendary}/38
-
+🩵 Обычные:
+${common}/59 (${commonPercent}%)
+💚 Редкие:
+${rare}/58 (${rarePercent}%)
+💙 Сверхредкие:
+${superRare}/58 (${superRarePercent}%)
+💜 Эпические:
+${epic}/61 (${epicPercent}%)
+❤️ Мифические:
+${mythic}/57 (${mythicPercent}%)
+⭐ Легендарные:
+${legendary}/38 (${legendaryPercent}%)
 ━━━━━━━━━━━━━━━━━━━━━━━━
 
 🎴 Уникальных мемов: ${uniqueMemes}
