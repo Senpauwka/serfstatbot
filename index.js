@@ -164,6 +164,7 @@ const superRare = superRareMatch ? superRareMatch[1] : '?';
 const epic = epicMatch ? epicMatch[1] : '?';
 const mythic = mythicMatch ? mythicMatch[1] : '?';
 const legendary = legendaryMatch ? legendaryMatch[1] : '?';
+
 const uniqueMemes =
     Number(common) +
     Number(rare) +
@@ -171,10 +172,22 @@ const uniqueMemes =
     Number(epic) +
     Number(mythic) +
     Number(legendary);
+
+const TOTAL_MEMES =
+    59 +
+    58 +
+    58 +
+    61 +
+    57 +
+    38;
+
 const collectionPercent =
 (
-    uniqueMemes / 331 * 100
+    uniqueMemes /
+    TOTAL_MEMES *
+    100
 ).toFixed(1);
+
 const minPts =
     Number(common) * 25 +
     Number(rare) * 55 +
@@ -268,6 +281,36 @@ if (collectionPercent >= 100) {
     collectorTitle =
         '🥉 Собиратель';
 }
+
+let nextCollectionGoal = '';
+
+const nextMilestones = [
+    25,
+    50,
+    100,
+    200,
+    300,
+    TOTAL_MEMES
+];
+
+const nextGoal =
+    nextMilestones.find(
+        goal => uniqueMemes < goal
+    );
+
+if (nextGoal) {
+
+    nextCollectionGoal =
+        `До следующей цели: ${
+            nextGoal - uniqueMemes
+        } мемов`;
+
+} else {
+
+    nextCollectionGoal =
+        '🏆 Коллекция полностью собрана';
+}
+
 const achievements = [];
 
 // Легендарные
@@ -362,6 +405,46 @@ if (newRate >= 30)
 if (newRate >= 40)
     achievements.push('👑 Избранник RNG');
 
+let accountScore = 0;
+
+accountScore += uniqueMemes * 2;
+accountScore += Number(legendary) * 50;
+accountScore += Number(mythic) * 20;
+accountScore += Number(epic) * 10;
+accountScore += Number(superRare) * 5;
+
+accountScore += Math.floor(
+    collectionPercent * 5
+);
+
+let accountRank = '📦 Новобранец';
+
+if (accountScore >= 5000) {
+
+    accountRank =
+        '👑 Император Мемов';
+
+} else if (accountScore >= 3500) {
+
+    accountRank =
+        '⚜️ Лорд Мемов';
+
+} else if (accountScore >= 2500) {
+
+    accountRank =
+        '🏆 Магистр Коллекции';
+
+} else if (accountScore >= 1500) {
+
+    accountRank =
+        '🥇 Ветеран';
+
+} else if (accountScore >= 750) {
+
+    accountRank =
+        '🥈 Опытный коллекционер';
+}
+
         const report =
 `📊 Анализ профиля
 
@@ -388,8 +471,17 @@ ${minPts} PTS
 📚 Закрытие коллекции:
 ${collectionPercent}%
 
+🎯 Следующая цель:
+${nextCollectionGoal}
+
 🏅 Титул:
 ${collectorTitle}
+
+⚜️ Рейтинг аккаунта:
+${accountRank}
+
+📊 Сила аккаунта:
+${accountScore}
 
 🗑️ Оценка баянов: ${duplicates}
 
