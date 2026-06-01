@@ -270,47 +270,97 @@ if (collectionPercent >= 100) {
 }
 const achievements = [];
 
-if (Number(legendary) >= 10) {
+// Легендарные
 
-    achievements.push(
-        '⭐ Охотник на легендарки'
-    );
-}
+if (Number(legendary) >= 1)
+    achievements.push('⭐ Первая легендарка');
 
-if (Number(legendary) >= 25) {
+if (Number(legendary) >= 10)
+    achievements.push('⭐ Охотник на легендарки');
 
-    achievements.push(
-        '👑 Повелитель легендарок'
-    );
-}
+if (Number(legendary) >= 20)
+    achievements.push('🌟 Коллекционер легенд');
 
-if (Number(mythic) >= 30) {
+if (Number(legendary) >= 30)
+    achievements.push('👑 Повелитель легендарок');
 
-    achievements.push(
-        '🔥 Мифический коллекционер'
-    );
-}
+if (Number(legendary) >= 38)
+    achievements.push('💎 Все легендарки собраны');
 
-if (Number(epic) >= 50) {
 
-    achievements.push(
-        '💜 Эпический архив'
-    );
-}
+// Мифические
 
-if (collectionPercent >= 90) {
+if (Number(mythic) >= 10)
+    achievements.push('🧡 Искатель мифов');
 
-    achievements.push(
-        '🏆 Почти собрал всё'
-    );
-}
+if (Number(mythic) >= 25)
+    achievements.push('🔥 Мифический коллекционер');
 
-if (collectionPercent >= 100) {
+if (Number(mythic) >= 40)
+    achievements.push('⚡ Архимаг мификов');
 
-    achievements.push(
-        '💎 Коллекция завершена'
-    );
-}
+if (Number(mythic) >= 57)
+    achievements.push('💎 Все мифики собраны');
+
+
+// Эпические
+
+if (Number(epic) >= 20)
+    achievements.push('💜 Любитель эпиков');
+
+if (Number(epic) >= 40)
+    achievements.push('📚 Эпический архив');
+
+if (Number(epic) >= 61)
+    achievements.push('💎 Все эпики собраны');
+
+
+// Коллекция
+
+if (collectionPercent >= 25)
+    achievements.push('📦 Четверть коллекции');
+
+if (collectionPercent >= 50)
+    achievements.push('📚 Половина коллекции');
+
+if (collectionPercent >= 75)
+    achievements.push('🥇 Три четверти пути');
+
+if (collectionPercent >= 90)
+    achievements.push('🏆 Почти собрал всё');
+
+if (collectionPercent >= 100)
+    achievements.push('💎 Коллекция завершена');
+
+
+// Количество мемов
+
+if (uniqueMemes >= 25)
+    achievements.push('🎴 Первые 25 мемов');
+
+if (uniqueMemes >= 50)
+    achievements.push('📚 Первые 50 мемов');
+
+if (uniqueMemes >= 100)
+    achievements.push('🎯 Сотня мемов');
+
+if (uniqueMemes >= 200)
+    achievements.push('🔥 200 уникальных мемов');
+
+if (uniqueMemes >= 300)
+    achievements.push('👑 300 уникальных мемов');
+
+
+// Удача
+
+if (newRate >= 20)
+    achievements.push('🍀 Везунчик');
+
+if (newRate >= 30)
+    achievements.push('🔥 Любимчик рандома');
+
+if (newRate >= 40)
+    achievements.push('👑 Избранник RNG');
 
         const report =
 `📊 Анализ профиля
