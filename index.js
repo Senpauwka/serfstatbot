@@ -85,6 +85,8 @@ ${data.epicAchievements.join('\n') || 'Нет'}
 ${data.legendaryAchievements.join('\n') || 'Нет'}`
 );
 
+});
+
 bot.on('photo', async (msg) => {
 
     try {
