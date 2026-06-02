@@ -8,6 +8,7 @@ const OCR_API_KEY = process.env.OCR_API_KEY;
 const bot = new TelegramBot(TOKEN, {
     polling: true
 });
+const userData = {};
 
 console.log('VER 2.0 TEST');
 
@@ -15,6 +16,41 @@ bot.onText(/\/start/, (msg) => {
     bot.sendMessage(
         msg.chat.id,
         '📊 SerfStat Analyzer\n\nОтправь скрин профиля Серфбота.'
+    );
+});
+
+bot.onText(/\/profile/, (msg) => {
+
+    const data =
+        userData[msg.chat.id];
+
+    if (!data) {
+
+        return bot.sendMessage(
+            msg.chat.id,
+            '❌ Сначала отправь скрин профиля.'
+        );
+    }
+
+    bot.sendMessage(
+        msg.chat.id,
+
+`📊 Профиль
+
+🏆 Ранг: ${data.rank}
+⭐ PTS: ${data.pts}
+
+🎴 Уникальных мемов:
+${data.uniqueMemes}/331
+
+📚 Закрытие коллекции:
+${data.collectionPercent}%
+
+🏅 Титул:
+${data.collectorTitle}
+
+⚜️ Рейтинг:
+${data.accountRank}`
     );
 });
 
@@ -474,6 +510,31 @@ if (accountScore >= 5000) {
     accountRank =
         '🥈 Опытный коллекционер';
 }
+
+userData[msg.chat.id] = {
+    memes,
+    rank,
+    pts,
+    common,
+    rare,
+    superRare,
+    epic,
+    mythic,
+    legendary,
+    uniqueMemes,
+    collectionPercent,
+    minPts,
+    estimatedRolls,
+    duplicates,
+    newRate,
+    duplicateRate,
+    luckText,
+    collectorTitle,
+    accountRank,
+    accountScore,
+    achievements,
+    nextCollectionGoal
+};
 
         const report =
 `📊 Анализ профиля
