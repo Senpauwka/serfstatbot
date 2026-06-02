@@ -54,6 +54,28 @@ ${data.accountRank}`
     );
 });
 
+bot.onText(/\/achievements/, (msg) => {
+
+    const data =
+        userData[msg.chat.id];
+
+    if (!data) {
+
+        return bot.sendMessage(
+            msg.chat.id,
+            '❌ Сначала отправь скрин профиля.'
+        );
+    }
+
+    bot.sendMessage(
+        msg.chat.id,
+
+`🏆 Достижения
+
+${data.achievements.join('\n')}`
+    );
+});
+
 bot.on('photo', async (msg) => {
 
     try {
