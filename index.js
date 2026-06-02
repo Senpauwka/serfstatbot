@@ -658,20 +658,15 @@ ${duplicateRate}%
 🏆 Достижения:
 ${totalAchievements}/22
 
-🟢 Обычные:
-${commonAchievements.length}
+🟢 Обычные: ${commonAchievements.length}
 
-🔵 Редкие:
-${rareAchievements.length}
+🔵 Редкие: ${rareAchievements.length}
 
-🟣 Эпические:
-${epicAchievements.length}
+🟣 Эпические: ${epicAchievements.length}
 
-🟡 Легендарные:
-${legendaryAchievements.length}
+🟡 Легендарные: ${legendaryAchievements.length}
 
-🎰 Оценка прокрутов:
-${estimatedRolls}`;
+🎰 Оценка прокрутов: ${estimatedRolls}`;
 
 await bot.sendMessage(
     msg.chat.id,
