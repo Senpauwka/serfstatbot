@@ -68,13 +68,22 @@ bot.onText(/\/achievements/, (msg) => {
     }
 
     bot.sendMessage(
-        msg.chat.id,
+    msg.chat.id,
 
 `🏆 Достижения
 
-${data.achievements.join('\n')}`
-    );
-});
+🟢 Обычные:
+${data.commonAchievements.join('\n') || 'Нет'}
+
+🔵 Редкие:
+${data.rareAchievements.join('\n') || 'Нет'}
+
+🟣 Эпические:
+${data.epicAchievements.join('\n') || 'Нет'}
+
+🟡 Легендарные:
+${data.legendaryAchievements.join('\n') || 'Нет'}`
+);
 
 bot.on('photo', async (msg) => {
 
@@ -428,7 +437,7 @@ if (Number(legendary) >= 30)
 
 if (Number(legendary) >= 38)
     legendaryAchievements.push(
-       '💎 Все легендарки собраны
+       '💎 Все легендарки собраны'
     );
 
 
@@ -577,7 +586,10 @@ userData[msg.chat.id] = {
     collectorTitle,
     accountRank,
     accountScore,
-    achievements,
+    commonAchievements,
+    rareAchievements,
+    epicAchievements,
+    legendaryAchievements,
     nextCollectionGoal
 };
 
