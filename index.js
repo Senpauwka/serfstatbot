@@ -399,99 +399,122 @@ if (nextGoal) {
         '🏆 Коллекция полностью собрана';
 }
 
-const achievements = [];
+const commonAchievements = [];
+const rareAchievements = [];
+const epicAchievements = [];
+const legendaryAchievements = [];
 
 // Легендарные
 
 if (Number(legendary) >= 1)
-    achievements.push('⭐ Первая легендарка');
+    commonAchievements.push(
+        '⭐ Первая легендарка'
+    );
 
 if (Number(legendary) >= 10)
-    achievements.push('⭐ Охотник на легендарки');
+    rareAchievements.push(
+        '⭐ Охотник на легендарки'
+    );
 
 if (Number(legendary) >= 20)
-    achievements.push('🌟 Коллекционер легенд');
+    epicAchievements.push(
+        '🌟 Коллекционер легенд'
+    );
 
 if (Number(legendary) >= 30)
-    achievements.push('👑 Повелитель легендарок');
+    legendaryAchievements.push(
+        '👑 Повелитель легендарок'
+    );
 
 if (Number(legendary) >= 38)
-    achievements.push('💎 Все легендарки собраны');
+    legendaryAchievements.push(
+       '💎 Все легендарки собраны
+    );
 
 
 // Мифические
 
 if (Number(mythic) >= 10)
-    achievements.push('🧡 Искатель мифов');
+    commonAchievements.push('🧡 Искатель мифов');
 
 if (Number(mythic) >= 25)
-    achievements.push('🔥 Мифический коллекционер');
+    rareAchievements.push(
+        '🔥 Мифический коллекционер'
+    );
 
 if (Number(mythic) >= 40)
-    achievements.push('⚡ Архимаг мификов');
+    epicAchievements.push(
+        '⚡ Архимаг мификов'
+    );
 
 if (Number(mythic) >= 57)
-    achievements.push('💎 Все мифики собраны');
+    legendaryAchievements.push(
+        '💎 Все мифики собраны'
+    );
 
 
 // Эпические
 
 if (Number(epic) >= 20)
-    achievements.push('💜 Любитель эпиков');
+    commonAchievements.push('💜 Любитель эпиков');
 
 if (Number(epic) >= 40)
-    achievements.push('📚 Эпический архив');
+    rareAchievements.push('📚 Эпический архив');
 
 if (Number(epic) >= 61)
-    achievements.push('💎 Все эпики собраны');
+    legendaryAchievements.push('💎 Все эпики собраны');
 
 
 // Коллекция
 
 if (collectionPercent >= 25)
-    achievements.push('📦 Четверть коллекции');
+    commonAchievements.push('📦 Четверть коллекции');
 
 if (collectionPercent >= 50)
-    achievements.push('📚 Половина коллекции');
+    rareAchievements.push('📚 Половина коллекции');
 
 if (collectionPercent >= 75)
-    achievements.push('🥇 Три четверти пути');
+    epicAchievements.push('🥇 Три четверти пути');
 
 if (collectionPercent >= 90)
-    achievements.push('🏆 Почти собрал всё');
+    legendaryAchievements.push('🏆 Почти собрал всё');
 
 if (collectionPercent >= 100)
-    achievements.push('💎 Коллекция завершена');
+    legendaryAchievements.push(
+        '💎 Коллекция завершена'
+    );
 
 
 // Количество мемов
 
 if (uniqueMemes >= 25)
-    achievements.push('🎴 Первые 25 мемов');
+    commonAchievements.push('🎴 Первые 25 мемов');
 
 if (uniqueMemes >= 50)
-    achievements.push('📚 Первые 50 мемов');
+    rareAchievements.push('📚 Первые 50 мемов');
 
 if (uniqueMemes >= 100)
-    achievements.push('🎯 Сотня мемов');
+    epicAchievements.push('🎯 Сотня мемов');
 
 if (uniqueMemes >= 200)
-    achievements.push('🔥 200 уникальных мемов');
+    legendaryAchievements.push('🔥 200 уникальных мемов');
 
 if (uniqueMemes >= 300)
-    achievements.push('👑 300 уникальных мемов');
+    legendaryAchievements.push(
+        '👑 300 уникальных мемов'
+    );
 
 
 // Удача
 
 if (newRate >= 20)
-    achievements.push('🍀 Везунчик');
+    rareAchievements.push('🍀 Везунчик');
 
 if (newRate >= 30)
-    achievements.push('🔥 Любимчик рандома');
+    epicAchievements.push('🔥 Любимчик рандома');
 
 if (newRate >= 40)
-    achievements.push('👑 Избранник RNG');
+    legendaryAchievements.push('👑 Избранник RNG');
 
 let accountScore = 0;
 
@@ -558,6 +581,12 @@ userData[msg.chat.id] = {
     nextCollectionGoal
 };
 
+const totalAchievements =
+    commonAchievements.length +
+    rareAchievements.length +
+    epicAchievements.length +
+    legendaryAchievements.length;
+
         const report =
 `📊 Анализ профиля
 
@@ -613,8 +642,19 @@ ${luckText}
 ${duplicateRate}%
 
 🏆 Достижения:
+${totalAchievements}/22
 
-${achievements.join('\n')}
+🟢 Обычные:
+${commonAchievements.length}
+
+🔵 Редкие:
+${rareAchievements.length}
+
+🟣 Эпические:
+${epicAchievements.length}
+
+🟡 Легендарные:
+${legendaryAchievements.length}
 
 🎰 Оценка прокрутов:
 ${estimatedRolls}`;
